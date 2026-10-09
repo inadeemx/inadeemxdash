@@ -460,20 +460,88 @@
     #print-area, #print-area *{visibility:visible;}
     #print-area{position:absolute;left:0;top:0;width:100%;margin:0;padding:0;}
   }
+
+
+/* Previous iOS-style login screen restored */
+  /* ---------- iOS style Login ---------- */
+#login-screen{
+    position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;
+    padding:24px;background:#FFFFFF;overflow:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;color:#000;
+  }
+  #login-screen.hide{display:none;}
+  #login-screen .blob{position:absolute;border-radius:50%;pointer-events:none;}
+  #login-screen .blob.b1{width:520px;height:520px;top:-240px;right:-160px;background:radial-gradient(circle at 30% 30%,#FF453A,#D70015);opacity:.95;}
+  #login-screen .blob.b2{width:340px;height:340px;bottom:-170px;left:-120px;background:radial-gradient(circle at 30% 30%,#FF6B61,#E0202E);opacity:.9;}
+  .login-card{
+    position:relative;width:100%;max-width:380px;background:rgba(255,255,255,.88);
+    -webkit-backdrop-filter:saturate(180%) blur(28px);backdrop-filter:saturate(180%) blur(28px);
+    border-radius:30px;padding:36px 26px 26px;box-shadow:0 24px 60px rgba(215,0,21,.20),0 2px 8px rgba(0,0,0,.06);
+    border:1px solid rgba(0,0,0,.05);animation:loginIn 480ms cubic-bezier(.2,.9,.3,1);
+  }
+  @keyframes loginIn{from{opacity:0;transform:translateY(18px) scale(.97);}to{opacity:1;transform:none;}}
+.login-icon{
+    width:76px;height:76px;margin:0 auto 18px;border-radius:19px;background:linear-gradient(145deg,#FF453A,#D70015);
+    display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(215,0,21,.35);
+  }
+  .login-icon svg{width:38px;height:38px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+  .login-card h1{margin:0;text-align:center;font-size:29px;font-weight:800;letter-spacing:-.6px;color:#000;}
+  .login-card .sub{margin:6px 0 26px;text-align:center;font-size:15px;font-weight:700;color:#000;opacity:.6;}
+  .ios-group{background:#fff;border-radius:14px;border:1px solid #E5E5EA;overflow:hidden;}
+  .ios-field{display:flex;align-items:center;gap:12px;padding:0 14px;height:52px;}
+  .ios-field + .ios-field{border-top:1px solid #E5E5EA;}
+  .ios-field svg{width:20px;height:20px;flex:none;fill:none;stroke:#D70015;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .ios-field input{
+    flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:inherit;
+    font-size:17px;font-weight:700;color:#000;padding:0;height:100%;box-shadow:none;border-radius:0;
+  }
+  .ios-field input::placeholder{color:#8E8E93;font-weight:600;}
+  .ios-field input:focus{box-shadow:none;border:none;}
+  .ios-field:focus-within{background:#FFF5F4;}
+  .eye-btn{border:none;background:transparent;color:#D70015;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;padding:6px 2px;}
+  .login-error{min-height:20px;margin:12px 4px 0;font-size:13.5px;font-weight:800;color:#D70015;text-align:center;}
+  .login-error.shake{animation:shake 360ms;}
+  @keyframes shake{20%,60%{transform:translateX(-6px);}40%,80%{transform:translateX(6px);}}
+  .login-btn{
+    width:100%;margin-top:8px;height:54px;border:none;border-radius:16px;cursor:pointer;
+    background:linear-gradient(180deg,#FF453A,#D70015);color:#fff;font-family:inherit;
+    font-size:17px;font-weight:800;letter-spacing:.1px;box-shadow:0 8px 20px rgba(215,0,21,.35);
+    transition:transform 120ms ease,filter 120ms ease;
+  }
+  .login-btn:active{transform:scale(.97);filter:brightness(.93);}
+  .login-foot{margin-top:18px;text-align:center;font-size:12px;font-weight:700;color:#000;opacity:.45;}
+
+  .login-card h1{margin:0;text-align:center;font-size:29px;font-weight:800;letter-spacing:-.6px;color:#000;}
+  .login-card .sub{margin:6px 0 26px;text-align:center;font-size:15px;font-weight:700;color:#000;opacity:.6;}
+  .login-error{min-height:20px;margin:12px 4px 0;font-size:13.5px;font-weight:800;color:#D70015;text-align:center;display:block;}
+  .login-error:not(.show){visibility:hidden;}
+  .login-btn{width:100%;margin-top:8px;height:54px;border:none;border-radius:16px;cursor:pointer;background:linear-gradient(180deg,#FF453A,#D70015);color:#fff;font-family:inherit;font-size:17px;font-weight:800;box-shadow:0 8px 20px rgba(215,0,21,.35);}
+  .login-foot{margin-top:18px;text-align:center;font-size:12px;font-weight:700;color:#000;opacity:.45;}
+
 </style>
 </head>
 <body>
-<div class="login-screen" id="login-screen">
+<div id="login-screen">
+  <div class="blob b1"></div><div class="blob b2"></div>
   <div class="login-card">
-    <div class="login-logo">Cutting<span>Tracker</span></div>
-    <p class="login-sub">Sign in to continue</p>
-    <label>Username</label>
-    <input type="text" id="login-username" placeholder="Username" autocomplete="username">
-    <label>Password</label>
-    <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
-    <button type="button" class="btn-primary" id="login-submit-btn">Sign In</button>
-    <div class="msg err" id="login-msg"></div>
-    <p class="login-hint">Admin account: <b>admin</b> / <b>admin123</b> — full access.<br>Pankaj's account: <b>pankaj</b> / <b>1234</b> — Dashboard, Order Sheet &amp; Issued Cutting only.</p>
+    <div class="login-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+    <h1>Cutting Tracker</h1>
+    <p class="sub">Sign in to continue</p>
+    <div class="ios-group">
+      <label class="ios-field" style="margin:0">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <input type="text" id="login-username" placeholder="Username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false">
+      </label>
+      <label class="ios-field" style="margin:0">
+        <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+        <button type="button" class="eye-btn" id="login-eye-btn">SHOW</button>
+      </label>
+    </div>
+    <div class="login-error" id="login-msg" role="alert"></div>
+    <button type="button" class="login-btn" id="login-submit-btn">Sign In</button>
+    <p class="login-foot">Secure access to Cutting Tracker</p>
   </div>
 </div>
 
@@ -2146,6 +2214,14 @@ function bindGlobalSearch(){
   renderDashboard();
   playContentFade();
 })();
+
+// Login screen visual helpers
+document.getElementById('login-eye-btn')?.addEventListener('click', function(){
+  const p=document.getElementById('login-password');
+  const show=p.type==='password'; p.type=show?'text':'password'; this.textContent=show?'HIDE':'SHOW';
+});
+document.getElementById('login-password')?.addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('login-submit-btn')?.click(); });
+document.getElementById('login-username')?.addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('login-password')?.focus(); });
 </script>
 </body>
 </html>
